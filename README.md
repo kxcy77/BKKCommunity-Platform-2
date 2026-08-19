@@ -14,6 +14,7 @@ This is the clean, source-only backup repository for the BKK Community group pro
 | Documentation | `docs/` | Platform explainer, viva guide, test evidence and release gates |
 | Database reference | `database-reference/` | Shared schema reference from the mobile handover |
 | Experimental references | `reference/` | Node API and static admin prototypes; not the production backend |
+| Automation & Tooling | `scripts/` | Project verification and helper scripts |
 
 ## What is intentionally excluded
 
