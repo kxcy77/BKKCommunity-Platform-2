@@ -55,4 +55,3 @@ The cleaned tree now passes `testDebugUnitTest`, `lintDebug` and `assembleDebug`
 ## Release gate
 
 Do not call the interface final until 200% font scaling, TalkBack traversal, long-content layouts, API error states and elderly-user UAT have evidence attached to the project documentation.
-dhbdhj
