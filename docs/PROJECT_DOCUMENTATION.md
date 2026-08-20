@@ -25,11 +25,11 @@ Release success still requires all Must requirements to pass, no critical defect
 
 ## 3. Users and roles
 
-| Role | Capabilities |
-|---|---|
-| Signed-out user | Register, sign in or request a password-reset code |
-| Member | Browse events, discounts and services; RSVP; use reminders; manage profile/preferences/history and contact support |
-| Administrator | Maintain events, discounts, local services and contact-message status |
+| Role            | Capabilities                                                                                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Signed-out user | Register, sign in or request a password-reset code                                                                 |
+| Member          | Browse events, discounts and services; RSVP; use reminders; manage profile/preferences/history and contact support |
+| Administrator   | Maintain events, discounts, local services and contact-message status                                              |
 
 Administrators use the same account system and every protected admin page rechecks the current database role. Administrator promotion/creation is a controlled command-line operation; the production UI does not expose role management.
 
@@ -113,20 +113,20 @@ Android uses Jetpack Compose, Navigation Compose, ViewModel/StateFlow, Retrofit/
 
 ## 7. Data model
 
-| Table | Purpose | Critical constraint |
-|---|---|---|
-| `users` | Profile, password hash, role and preferences | unique email |
-| `auth_sessions` | Revocable hashed bearer tokens | unique token hash |
-| `password_reset_tokens` | HMAC reset codes and attempt counters | unique code hash, expiry and used state |
-| `events` | Community activities | end time validated after start |
-| `attendance` | Member RSVP state | unique member/event pair |
-| `discounts` | Senior deals | valid-until not before valid-from |
-| `local_services` | Community and health services | required contact fields |
-| `contact_messages` | Submitted support requests | retention policy still required |
-| `devices` | Mobile notification registration tokens | unique token |
-| `notification_log` | Future provider acceptance/failure records | unique dedupe key |
-| `api_rate_limits` | Hashed IP/account request buckets | unique bucket key |
-| `schema_migrations` | Applied migration names | unique migration name |
+| Table                   | Purpose                                      | Critical constraint                     |
+| ----------------------- | -------------------------------------------- | --------------------------------------- |
+| `users`                 | Profile, password hash, role and preferences | unique email                            |
+| `auth_sessions`         | Revocable hashed bearer tokens               | unique token hash                       |
+| `password_reset_tokens` | HMAC reset codes and attempt counters        | unique code hash, expiry and used state |
+| `events`                | Community activities                         | end time validated after start          |
+| `attendance`            | Member RSVP state                            | unique member/event pair                |
+| `discounts`             | Senior deals                                 | valid-until not before valid-from       |
+| `local_services`        | Community and health services                | required contact fields                 |
+| `contact_messages`      | Submitted support requests                   | retention policy still required         |
+| `devices`               | Mobile notification registration tokens      | unique token                            |
+| `notification_log`      | Future provider acceptance/failure records   | unique dedupe key                       |
+| `api_rate_limits`       | Hashed IP/account request buckets            | unique bucket key                       |
+| `schema_migrations`     | Applied migration names                      | unique migration name                   |
 
 ## 8. API contract summary
 
@@ -181,3 +181,5 @@ The current package is a hardened development handoff, not a signed production r
 - retention policy, privacy notice and POPIA/legal review.
 
 The ruthless conclusion: the critical false-success and secret-handling defects were fixed, but calling the product “production ready” before those external and human gates pass would still be dishonest.
+
+going
