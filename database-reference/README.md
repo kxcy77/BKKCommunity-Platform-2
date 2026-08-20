@@ -4,3 +4,4 @@ The canonical MySQL data model is `../api/prisma/schema.prisma`. The reproducibl
 
 Do not maintain a second hand-written schema here. Schema changes must be represented as reviewed Prisma migrations and verified against a fresh MySQL 8 database before deployment.
 
+sdn;d
