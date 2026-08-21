@@ -27,6 +27,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
+
 register_html="$(curl -fsS -c "$cookie_jar" "${base_url}/register.php")"
 csrf="$(printf '%s' "$register_html" | csrf_from)"
 curl -fsS -b "$cookie_jar" -c "$cookie_jar" -o /dev/null \
