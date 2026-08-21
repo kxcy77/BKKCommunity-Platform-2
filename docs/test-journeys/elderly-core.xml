@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <journey id="elderly-core" title="BKK elderly member core journey" version="2026-08-14">
   <preconditions>
-    <condition>A signed-out test device is available.</condition>
+    <condition>A signed-out test device is available.</condition
     <condition>No real member credentials are used.</condition>
     <condition>Any disposable live account is deleted after the journey.</condition>
   </preconditions>
