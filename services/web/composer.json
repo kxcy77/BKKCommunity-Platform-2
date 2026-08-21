@@ -2,7 +2,7 @@
     "name": "bkk-community/platform",
     "description": "BKK Community web application and mobile JSON API",
     "license": "proprietary",
-    "type": "project",
+    "type": "",
     "require": {
         "php": "^8.3",
         "phpmailer/phpmailer": "^7.1"
