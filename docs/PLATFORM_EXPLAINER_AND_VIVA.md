@@ -384,4 +384,4 @@ Before presenting, every member should be able to explain:
 - how an admin publishes verified information;
 - the honest list of remaining release gates.
 
-If the group cannot demonstrate something live, say: **“The code path is implemented, but we have marked real-world verification as outstanding rather than claiming it has been completed.”** That is much stronger than guessing.
+If the group cannot demonstrate something live, say: **“The code path is implemented, but we have marked real-world verification as outstanding rather than claiming it has been completed.”** That is much stronger than guessing
