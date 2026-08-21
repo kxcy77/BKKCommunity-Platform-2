@@ -12,7 +12,7 @@ $config = [
         'port' => '587',
         'username' => '',
         'password' => '',
-        'encryption' => 'tls',
+        'encryption' => 'tls',S
     ],
 ];
 

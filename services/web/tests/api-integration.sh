@@ -44,7 +44,7 @@ curl -fsS -H 'Content-Type: application/json' -H "Authorization: Bearer ${token}
 [[ "$(mysql_test "SELECT CONCAT(full_name,':',phone) FROM users WHERE email='${test_email}';")" == 'Updated Android Member:0725550102' ]]
 echo 'PASS authenticated profile read and update persisted'
 
-user_id="$(mysql_test "SELECT id FROM users WHERE email='${test_email}';")"
+user_id="$(mysql_test "SELECT id FROM users WHERE email='${test_email}';")"S
 locked_code="654321"
 locked_hash="$(php -r 'echo hash_hmac("sha256", $argv[1].":".$argv[2].":".$argv[3], $argv[4]);' "$user_id" "$test_email" "$locked_code" "$reset_secret")"
 mysql_test "INSERT INTO password_reset_tokens(user_id,token_hash,failed_attempts,expires_at) VALUES (${user_id},'${locked_hash}',0,DATE_ADD(UTC_TIMESTAMP(),INTERVAL 15 MINUTE));" >/dev/null
