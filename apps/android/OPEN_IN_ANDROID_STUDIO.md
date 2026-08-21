@@ -10,4 +10,4 @@ Debug and release builds default to the verified Railway HTTPS API. To use a loc
 
 Gradle supports the current Java 25 daemon criterion. Android/Kotlin bytecode stays on JVM 17 by design because that is the correct Android compilation target.
 
-Firebase is optional at compile time. Add the authorised `google-services.json` to `app/` to test FCM; never commit it.
+Firebase is optional at compile time. Add the authorised `google-services.json` to `app/` to test FCM; never commit it

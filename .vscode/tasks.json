@@ -43,6 +43,7 @@
       "command": "./gradlew",
       "args": [
         "testDebugUnitTest"
+      
       ],
       "options": {
         "cwd": "${workspaceFolder}/apps/android"

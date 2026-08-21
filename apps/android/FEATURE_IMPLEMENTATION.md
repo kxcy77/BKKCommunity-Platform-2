@@ -22,4 +22,3 @@ Not verified or not supplied:
 - TalkBack, 200% font scale, current-device matrix and six-person elderly-user UAT.
 
 These are release gates, not claims that can be satisfied by adding placeholder code.
-

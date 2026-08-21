@@ -13,4 +13,4 @@ This clean backup includes the current source from:
 
 The separate `BKK-Community-PasswordReset-Fix` folder is an older duplicate/prototype and is intentionally not merged into the clean repository. Keep the original folder separately only if historical recovery is needed.
 
-All generated output, third-party dependency folders, secrets and signing material are excluded by `.gitignore`.
+All generated output, third-party dependency folders, secrets and signing material are excluded by `.gitignore`
