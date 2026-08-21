@@ -55,3 +55,5 @@ else
   echo "Workspace validation failed with $ERRORS missing items."
   exit 1
 fi
+
+dhd
