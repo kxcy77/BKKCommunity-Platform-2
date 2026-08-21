@@ -19,6 +19,7 @@ class LaunchAuthenticationTest {
     val composeRule = createAndroidComposeRule<MainActivity>()
 
     @Before
+    
     fun clearStoredSession() {
         val application = ApplicationProvider.getApplicationContext<BkkApplication>()
         runBlocking { application.container.sessionStore.clear() }
