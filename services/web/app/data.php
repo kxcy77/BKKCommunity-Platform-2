@@ -14,6 +14,7 @@ function demo_events(): array
     ];
 }
 
+
 function demo_discounts(): array
 {
     return [

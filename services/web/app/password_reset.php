@@ -12,6 +12,7 @@ function normalise_account_email(string $email): string
 }
 
 function password_reset_code_hash(int $userId, string $email, string $code): string
+
 {
     $secret = (string) app_config('reset_code_secret');
     if (strlen($secret) < 32) {

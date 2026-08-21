@@ -1,9 +1,9 @@
 package za.co.bkkcommunity.app
-
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import za.co.bkkcommunity.app.model.ValidationRules
+
 
 class ValidationRulesTest {
     @Test fun emailValidationRejectsIncompleteAddresses() {

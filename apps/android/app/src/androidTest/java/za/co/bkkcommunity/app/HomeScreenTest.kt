@@ -36,6 +36,7 @@ class HomeScreenTest {
                 HomeScreen(state, PaddingValues(0.dp), {}, {}, { _, _ -> })
             }
         }
+        
         composeRule.onNodeWithText("BKK Community").assertIsDisplayed()
         composeRule.onNodeWithText("What would you like to do?").assertIsDisplayed()
         composeRule.onNodeWithText("Events").assertIsDisplayed().assertHasClickAction()

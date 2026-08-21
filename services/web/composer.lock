@@ -75,6 +75,7 @@
                     "name": "Brent R. Matzelle"
                 }
             ],
+            
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "support": {
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",

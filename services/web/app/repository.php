@@ -12,7 +12,8 @@ function database(): ?PDO
     }
     if ($connection === null) {
         return null;
-    }
+    
+        }
 
     $db = $config['db'];
     if (empty($db['host'])) {

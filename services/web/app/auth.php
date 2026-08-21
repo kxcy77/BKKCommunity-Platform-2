@@ -43,6 +43,7 @@ function attempt_login(string $email, string $password): bool
         $user = $statement->fetch();
         if (!$user || !password_verify($password, $user['password_hash'])) {
             return false;
+            
         }
         unset($user['password_hash']);
         session_regenerate_id(true);
