@@ -24,7 +24,6 @@ import java.time.ZonedDateTime
 
 class HomeScreenTest {
     @get:Rule val composeRule = createComposeRule()
-
     @Test fun documentedHomeStructureIsVisibleAndActionable() {
         val state = BkkUiState(
             loading = false,
