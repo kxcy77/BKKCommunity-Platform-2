@@ -41,13 +41,13 @@ This test must be completed with at least six BKK participants aged 60 or older.
 ## Evidence table
 
 | Participant | Device | Independent tasks / 10 | Critical defect? | Ease rating / 5 | Main confusion | Evidence reference |
-|---|---|---:|---|---:|---|---|
-| P1 |  |  |  |  |  |  |
-| P2 |  |  |  |  |  |  |
-| P3 |  |  |  |  |  |  |
-| P4 |  |  |  |  |  |  |
-| P5 |  |  |  |  |  |  |
-| P6 |  |  |  |  |  |  |
+| ----------- | ------ | ---------------------: | ---------------- | --------------: | -------------- | ------------------ |
+| P1          |        |                        |                  |                 |                |                    |
+| P2          |        |                        |                  |                 |                |                    |
+| P3          |        |                        |                  |                 |                |                    |
+| P4          |        |                        |                  |                 |                |                    |
+| P5          |        |                        |                  |                 |                |                    |
+| P6          |        |                        |                  |                 |                |                    |
 
 ## Defect rule
 
