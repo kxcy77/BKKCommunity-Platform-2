@@ -12,4 +12,3 @@ Recommended workflow:
 6. Share APKs/IPAs separately as labelled development builds; do not commit them to Git.
 
 Each Android developer opens the `android/` folder directly. Each iOS developer opens `ios/BKKCommunity.xcodeproj`.
-
