@@ -17,7 +17,7 @@ COPY database /var/www/database
 COPY public /var/www/html
 COPY .env.example /var/www/.env.example
 COPY docker/nginx.conf /etc/nginx/nginx.conf
-COPY --from=vendor /app/vendor /var/www/vendor
+COPY --from=vendor /app/vendor /var/www/
 
 RUN chmod +x /var/www/bin/*.sh \
     && chown -R www-data:www-data /var/www/app /var/www/bin /var/www/database /var/www/html
