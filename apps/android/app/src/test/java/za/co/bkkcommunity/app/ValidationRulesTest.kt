@@ -4,6 +4,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import za.co.bkkcommunity.app.model.ValidationRules
 
+
 class ValidationRulesTest {
     @Test fun emailValidationRejectsIncompleteAddresses() {
         assertTrue(ValidationRules.isEmail("member@example.com"))
