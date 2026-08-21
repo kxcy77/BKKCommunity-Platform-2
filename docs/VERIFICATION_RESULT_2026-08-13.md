@@ -36,5 +36,3 @@
 ## Important interpretation
 
 The tested canonical Railway contract and both simulator clients now work at the levels listed above. They do not prove live reset-email delivery, Firebase notifications, physical-device accessibility, approved BKK content or real-user UAT. Use `RELEASE_GATES.md` before any release claim.
-
-dhsjd
