@@ -16,7 +16,6 @@ mysql_query() {
         --user="$db_user" --database="$db_name" --default-character-set=utf8mb4 \
         --batch --skip-column-names --execute="$1"
 }
-
 if [ "${RUN_DATABASE_INITIALIZATION:-false}" = "true" ]; then
     table_count="$(mysql_query "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'users'")"
     if [ "$table_count" = "0" ]; then
