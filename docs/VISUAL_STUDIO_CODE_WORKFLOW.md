@@ -11,12 +11,12 @@ The workspace hides generated build folders so group members focus on source cod
 
 ## What Visual Studio Code can and cannot do
 
-| Work | Correct tool |
-|---|---|
-| Edit website, Android, iOS, documentation and configuration | Visual Studio Code |
-| Run/check the PHP website | Visual Studio Code tasks + PHP |
-| Build/run/debug Android on a device/emulator | Android Studio |
-| Build/run/debug iOS on a simulator/iPhone | Xcode on macOS |
+| Work                                                        | Correct tool                   |
+| ----------------------------------------------------------- | ------------------------------ |
+| Edit website, Android, iOS, documentation and configuration | Visual Studio Code             |
+| Run/check the PHP website                                   | Visual Studio Code tasks + PHP |
+| Build/run/debug Android on a device/emulator                | Android Studio                 |
+| Build/run/debug iOS on a simulator/iPhone                   | Xcode on macOS                 |
 
 Visual Studio Code is the shared editor. It does not replace Android Studio or Xcode. Full Visual Studio for Mac is retired and is not the correct environment for this PHP/Kotlin/Swift project.
 

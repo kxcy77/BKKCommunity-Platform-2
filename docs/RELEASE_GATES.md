@@ -5,7 +5,7 @@ The release owner must attach evidence and sign each gate. “Implemented in cod
 | Gate | Required evidence | Current state |
 |---|---|---|
 | Clean repository | Secret scan; no `.env`, signing keys, Firebase files, build output or nested Git data | Source scan passed for this cleaned tree; scan Git history after publishing |
-| Fresh MySQL | Empty MySQL 8 database migrates; approved seed/import; restart; fresh reads | Tracked migrations pass locally and in Railway; destructive empty-database rehearsal outstanding |
+| Fresh MySQL | Empty MySQL 8 database migrates; approved seed/import; restart; freshreads | Tracked migrations pass locally and in Railway; destructive empty-database rehearsal outstanding |
 | Authentication | Login gate, register, duplicate email, login, throttling, logout revocation, reset and reset-session revocation | Live register/login/revocation/profile/deletion passed; reset lockout/session logic passed locally; real email outstanding |
 | Authorisation | Signed-out/member/admin route matrix; last-admin and self-demotion checks | Mobile signed-out gate verified; admin live integration outstanding |
 | Android | Unit, lint, assemble, API 26/current emulator and physical device | Unit/lint/assemble and Android 36 live API journey passed; physical device and post-configuration API 26 evidence outstanding |

@@ -7,7 +7,6 @@
 ## 1. One-minute explanation
 
 BKK Community is an accessible information platform for older community members. It gives members one place to view community events, RSVP, find discounts, find useful local services, contact the BKK team and manage their own account.
-
 There are three user-facing clients:
 
 | Client | What it is for | Technology |
