@@ -1,5 +1,4 @@
 package za.co.bkkcommunity.app
-
 import java.time.LocalDate
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
