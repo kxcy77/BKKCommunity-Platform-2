@@ -162,4 +162,5 @@ CREATE TABLE api_rate_limits (
     expires_at DATETIME NOT NULL,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_api_rate_limit_expiry (expires_at)
+
 );
