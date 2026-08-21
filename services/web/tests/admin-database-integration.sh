@@ -39,7 +39,7 @@ curl -fsS -b "$cookie_jar" -c "$cookie_jar" -o /dev/null \
   --data-urlencode 'password_confirmation=StrongAdmin26' \
   --data-urlencode 'privacy_consent=1' \
   "${base_url}/actions.php"
-
+mysql_test "UPDATE users SET role='admin' WHERE email='${test_email}';" >/dev/null
 
 login_html="$(curl -fsS -b "$cookie_jar" -c "$cookie_jar" "${base_url}/login.php")"
 csrf="$(printf '%s' "$login_html" | csrf_from)"
