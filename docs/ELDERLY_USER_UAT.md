@@ -41,14 +41,16 @@ This test must be completed with at least six BKK participants aged 60 or older.
 ## Evidence table
 
 | Participant | Device | Independent tasks / 10 | Critical defect? | Ease rating / 5 | Main confusion | Evidence reference |
-|---|---|---:|---|---:|---|---|
-| P1 |  |  |  |  |  |  |
-| P2 |  |  |  |  |  |  |
-| P3 |  |  |  |  |  |  |
-| P4 |  |  |  |  |  |  |
-| P5 |  |  |  |  |  |  |
-| P6 |  |  |  |  |  |  |
+| ----------- | ------ | ---------------------: | ---------------- | --------------: | -------------- | ------------------ |
+| P1          |        |                        |                  |                 |                |                    |
+| P2          |        |                        |                  |                 |                |                    |
+| P3          |        |                        |                  |                 |                |                    |
+| P4          |        |                        |                  |                 |                |                    |
+| P5          |        |                        |                  |                 |                |                    |
+| P6          |        |                        |                  |                 |                |                    |
 
 ## Defect rule
 
 Treat a problem as critical if it can cause account loss, false attendance, travel to a fake event, disclosure of personal information, inability to sign in/reset a password, or inability to contact BKK. Stop the pilot until every critical defect is fixed and retested.
+
+cgbda
