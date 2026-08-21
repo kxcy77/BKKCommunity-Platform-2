@@ -20,7 +20,7 @@
       "**/build": true,
       "**/.gradle": true,
       "**/.build": true,
-      "**/.kotlin": true
+      "**/.kotlin": true 
     }
   }
 }
