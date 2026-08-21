@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-project_dir="$(cd "$(dirname "$0")/.." && pwd)"
+project_dir="$(cd "$(dirname "$0")/.." && pwd)
 test_port="${BKK_TEST_PORT:-8091}"
 base_url="http://127.0.0.1:${test_port}"
 server_log="$(mktemp /tmp/bkk-web-server.XXXXXX)"
