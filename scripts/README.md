@@ -5,5 +5,3 @@ This directory contains repository-wide automation, development helpers, and hea
 ## Scripts Overview
 
 - `check_workspace.sh`: Validates directory structure, configuration files, and core project entry points.
-
-dhs
