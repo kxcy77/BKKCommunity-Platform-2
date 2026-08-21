@@ -13,6 +13,7 @@ async function check(name, operation) {
     return false;
   }
   return true;
+
 }
 
 const browser = await chromium.launch({
