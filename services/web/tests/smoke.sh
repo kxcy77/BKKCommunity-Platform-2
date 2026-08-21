@@ -16,7 +16,7 @@ for attempt in {1..20}; do
     break
   fi
   sleep 0.2
-done
+
 
 
 for route in index.php events.php discounts.php info.php contact.php login.php register.php reset-password.php new-password.php; do
