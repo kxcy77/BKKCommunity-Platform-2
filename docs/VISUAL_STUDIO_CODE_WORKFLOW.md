@@ -39,5 +39,3 @@ Visual Studio Code is the shared editor. It does not replace Android Studio or X
 - Database/API error: check the documented environment setup and the live `/health`/`ready` status. Do not hard-code credentials or change production URLs randomly.
 
 No editor can make unsafe code changes harmless. The workspace reduces risk by making checks repeatable before a change reaches the shared branch.
-
-shbdh
