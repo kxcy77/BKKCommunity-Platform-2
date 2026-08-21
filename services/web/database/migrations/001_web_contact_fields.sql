@@ -7,7 +7,7 @@ BEGIN
         FROM information_schema.columns
         WHERE table_schema = DATABASE()
           AND table_name = 'contact_messages'
-          AND column_name = 
+          AND column_name = 'phone'
     ) THEN
         ALTER TABLE contact_messages
             ADD COLUMN phone VARCHAR(30) NULL AFTER email;
