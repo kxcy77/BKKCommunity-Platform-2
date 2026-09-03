@@ -145,6 +145,12 @@ jobs:
       - name: Run smoke tests
         env:
           BKK_TEST_PORT: 8091
+          DB_HOST: ""
+          DB_PORT: ""
+          DB_NAME: ""
+          DB_USER: ""
+          DB_PASSWORD: ""
+          MYSQL_PWD: ""
         run: ./tests/smoke.sh
 
       - name: Run database integration tests
@@ -244,6 +250,10 @@ jobs:
           if [ -f /tmp/bkk-web-server.log ]; then
             echo "===== PHP SERVER LOG ====="
             cat /tmp/bkk-web-server.log
+          else
+            echo "No PHP server log was created."
+          fi
+
           else
             echo "No PHP server log was created."
           fi
