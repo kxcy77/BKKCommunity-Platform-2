@@ -238,3 +238,7 @@ jobs:
       - name: Show server log on failure
         if: failure()
         run: cat /tmp/bkk-web-server.log
+
+      - name: Show server log on failure
+        if: failure()
+        run: cat /tmp/bkk-web-server.log
