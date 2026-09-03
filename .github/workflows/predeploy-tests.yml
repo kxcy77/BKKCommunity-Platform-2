@@ -45,6 +45,8 @@ jobs:
       DB_USER: root
       DB_PASSWORD: root
 
+      BKK_APP_ROOT: ${{ github.workspace }}/services/web
+
       RESET_CODE_SECRET: ci-test-reset-secret-2026
       BKK_TEST_RESET_CODE_SECRET: ci-test-reset-secret-2026
 
@@ -237,8 +239,11 @@ jobs:
 
       - name: Show server log on failure
         if: failure()
-        run: cat /tmp/bkk-web-server.log
-
-      - name: Show server log on failure
-        if: failure()
-        run: cat /tmp/bkk-web-server.log
+        continue-on-error: true
+        run: |
+          if [ -f /tmp/bkk-web-server.log ]; then
+            echo "===== PHP SERVER LOG ====="
+            cat /tmp/bkk-web-server.log
+          else
+            echo "No PHP server log was created."
+          fi
