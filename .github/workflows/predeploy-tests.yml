@@ -1,0 +1,143 @@
+name: Pre-deployment Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  web-tests:
+    name: Web integration tests
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: bkk_community
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    defaults:
+      run:
+        working-directory: services/web
+
+    env:
+      APP_ENV: development
+      ALLOW_DEMO_MODE: "false"
+      APP_URL: http://127.0.0.1:8090
+
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_NAME: bkk_community
+      DB_USER: root
+      DB_PASSWORD: root
+
+      RESET_CODE_SECRET: ci-test-reset-secret-2026
+      BKK_TEST_RESET_CODE_SECRET: ci-test-reset-secret-2026
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: pdo_mysql, mbstring, openssl, curl, json
+          tools: composer
+          coverage: none
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Verify PHP syntax
+        run: |
+          find app public bin -type f -name "*.php" -print0 |
+            xargs -0 -n1 php -l
+
+      - name: Initialise test database
+        run: |
+          mysql \
+            --host=127.0.0.1 \
+            --port=3306 \
+            --user=root \
+            --password=root \
+            bkk_community < database/schema.sql
+
+          mysql \
+            --host=127.0.0.1 \
+            --port=3306 \
+            --user=root \
+            --password=root \
+            bkk_community < database/seed.sql
+
+      - name: Apply numbered migrations
+        run: ./bin/migrate.sh
+
+      - name: Start PHP test server
+        run: |
+          APP_ENV=development \
+          ALLOW_DEMO_MODE=false \
+          DB_HOST=127.0.0.1 \
+          DB_PORT=3306 \
+          DB_NAME=bkk_community \
+          DB_USER=root \
+          DB_PASSWORD=root \
+          RESET_CODE_SECRET="$RESET_CODE_SECRET" \
+          php -S 127.0.0.1:8090 -t public public/router.php \
+          > /tmp/bkk-web-server.log 2>&1 &
+
+          for attempt in {1..30}; do
+            if curl -fsS http://127.0.0.1:8090/health >/dev/null 2>&1; then
+              echo "Test server is ready."
+              exit 0
+            fi
+            sleep 1
+          done
+
+          echo "Test server failed to start."
+          cat /tmp/bkk-web-server.log
+          exit 1
+
+      - name: Run smoke tests
+        env:
+          BKK_TEST_PORT: 8091
+        run: ./tests/smoke.sh
+
+      - name: Run database integration tests
+        env:
+          BKK_BASE_URL: http://127.0.0.1:8090
+          BKK_TEST_DB_NAME: bkk_community
+          BKK_TEST_DB_USER: root
+        run: ./tests/database-integration.sh
+
+      - name: Run administrator integration tests
+        env:
+          BKK_BASE_URL: http://127.0.0.1:8090
+          BKK_TEST_DB_NAME: bkk_community
+          BKK_TEST_DB_USER: root
+        run: ./tests/admin-database-integration.sh
+
+      - name: Run API integration tests
+        env:
+          BKK_BASE_URL: http://127.0.0.1:8090
+          BKK_TEST_DB_NAME: bkk_community
+          BKK_TEST_DB_USER: root
+        run: ./tests/api-integration.sh
+
+      - name: Show server log on failure
+        if: failure()
+        run: cat /tmp/bkk-web-server.log
