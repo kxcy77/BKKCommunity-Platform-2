@@ -48,9 +48,11 @@ jobs:
       RESET_CODE_SECRET: ci-test-reset-secret-2026
       BKK_TEST_RESET_CODE_SECRET: ci-test-reset-secret-2026
 
+      MYSQL_PWD: root
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -60,12 +62,19 @@ jobs:
           tools: composer
           coverage: none
 
+      - name: Verify PHP installation
+        run: |
+          php --version
+          composer --version
+          mysql --version
+          curl --version
+
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
 
       - name: Verify PHP syntax
         run: |
-          find app public bin -type f -name "*.php" -print0 |
+          find app public bin tests -type f -name "*.php" -print0 |
             xargs -0 -n1 php -l
 
       - name: Initialise test database
@@ -74,43 +83,62 @@ jobs:
             --host=127.0.0.1 \
             --port=3306 \
             --user=root \
-            --password=root \
             bkk_community < database/schema.sql
 
           mysql \
             --host=127.0.0.1 \
             --port=3306 \
             --user=root \
-            --password=root \
             bkk_community < database/seed.sql
 
       - name: Apply numbered migrations
         run: ./bin/migrate.sh
 
+      - name: Verify database
+        run: |
+          mysql \
+            --host=127.0.0.1 \
+            --port=3306 \
+            --user=root \
+            -e "USE bkk_community; SHOW TABLES;"
+
       - name: Start PHP test server
         run: |
-          APP_ENV=development \
-          ALLOW_DEMO_MODE=false \
-          DB_HOST=127.0.0.1 \
-          DB_PORT=3306 \
-          DB_NAME=bkk_community \
-          DB_USER=root \
-          DB_PASSWORD=root \
-          RESET_CODE_SECRET="$RESET_CODE_SECRET" \
           php -S 127.0.0.1:8090 -t public public/router.php \
-          > /tmp/bkk-web-server.log 2>&1 &
+            > /tmp/bkk-web-server.log 2>&1 &
+
+          echo $! > /tmp/bkk-web-server.pid
+
+          echo "Waiting for PHP test server..."
 
           for attempt in {1..30}; do
             if curl -fsS http://127.0.0.1:8090/health >/dev/null 2>&1; then
               echo "Test server is ready."
               exit 0
             fi
+
             sleep 1
           done
 
           echo "Test server failed to start."
-          cat /tmp/bkk-web-server.log
+
+          if [ -f /tmp/bkk-web-server.log ]; then
+            echo "===== PHP SERVER LOG ====="
+            cat /tmp/bkk-web-server.log
+          else
+            echo "No PHP server log was created."
+          fi
+
           exit 1
+
+      - name: Verify test server
+        run: |
+          curl -fsS http://127.0.0.1:8090/health
+          echo
+          echo "PHP test server is responding."
+
+      - name: Run mail configuration tests
+        run: php tests/mail-configuration.php
 
       - name: Run smoke tests
         env:
@@ -122,6 +150,7 @@ jobs:
           BKK_BASE_URL: http://127.0.0.1:8090
           BKK_TEST_DB_NAME: bkk_community
           BKK_TEST_DB_USER: root
+          MYSQL_PWD: root
         run: ./tests/database-integration.sh
 
       - name: Run administrator integration tests
@@ -129,6 +158,7 @@ jobs:
           BKK_BASE_URL: http://127.0.0.1:8090
           BKK_TEST_DB_NAME: bkk_community
           BKK_TEST_DB_USER: root
+          MYSQL_PWD: root
         run: ./tests/admin-database-integration.sh
 
       - name: Run API integration tests
@@ -136,7 +166,74 @@ jobs:
           BKK_BASE_URL: http://127.0.0.1:8090
           BKK_TEST_DB_NAME: bkk_community
           BKK_TEST_DB_USER: root
+          MYSQL_PWD: root
         run: ./tests/api-integration.sh
+
+      - name: Check Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Run browser journey
+        env:
+          BKK_WEB_URL: http://127.0.0.1:8090
+        run: node tests/elderly-core-journey.mjs
+
+      - name: Show server diagnostics on failure
+        if: failure()
+        run: |
+          echo "===== SERVER DIAGNOSTICS ====="
+
+          if [ -f /tmp/bkk-web-server.log ]; then
+            echo "===== MAIN PHP SERVER LOG ====="
+            cat /tmp/bkk-web-server.log
+          else
+            echo "Main PHP server log does not exist."
+          fi
+
+          echo
+          echo "===== PHP PROCESSES ====="
+          ps aux | grep '[p]hp -S' || true
+
+          echo
+          echo "===== PORT 8090 ====="
+          ss -ltnp | grep ':8090' || true
+
+          echo
+          echo "===== PORT 8091 ====="
+          ss -ltnp | grep ':8091' || true
+
+          echo
+          echo "===== TEMP BKK LOG FILES ====="
+          find /tmp -maxdepth 1 -type f -name 'bkk-web-server*' -print -exec sh -c 'echo "--- $1 ---"; cat "$1"' _ {} \; || true
+
+      - name: Upload server log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bkk-web-server-log
+          path: /tmp/bkk-web-server.log
+          if-no-files-found: ignore
+
+      - name: Upload browser screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bkk-browser-screenshot
+          path: /tmp/bkk-web-mobile-home.png
+          if-no-files-found: ignore
+
+      - name: Stop PHP test server
+        if: always()
+        run: |
+          if [ -f /tmp/bkk-web-server.pid ]; then
+            kill "$(cat /tmp/bkk-web-server.pid)" 2>/dev/null || true
+          fi
 
       - name: Show server log on failure
         if: failure()
